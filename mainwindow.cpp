@@ -222,6 +222,7 @@ void MainWindow::getImage(){
         QMessageBox::information((QWidget*)0, "Grab Error", "Error to grab image.");
         return;
     }
+    //errore nel linePath. Non si può modificare. Capire che cazzarola è successo.
     pSbigImage->SaveImage(ui->linePath->text().toLatin1(), fit);
 }
 
