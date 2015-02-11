@@ -100,14 +100,14 @@ void MainWindow::loadParameters(){
 }
 
 void MainWindow::loadFileImage(const QString &fileNameOP){
-    /*QImage imm(fileNameOP);
+    QImage imm(fileNameOP);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
-    ui->label_imm->resize(ui->label_imm->pixmap()->size());*/
+    ui->label_imm->resize(ui->label_imm->pixmap()->size());
 }
 
 void MainWindow::openImage(){
-    /*QString fileName = QFileDialog::getOpenFileName(this);
-    loadFileImage(fileName);*/
+    QString fileName = QFileDialog::getOpenFileName(this);
+    loadFileImage(fileName);
 }
 
 
