@@ -17,7 +17,9 @@
 #include <csbigcam.h>
 #include <csbigimg.h>
 #include "showimg.h"
-
+#include <iostream>
+#include <fitsio.h>
+#include <fitsio2.h>
 
 
 
@@ -103,14 +105,53 @@ void MainWindow::loadParameters(){
 }
 
 void MainWindow::loadFileImage(const QString &fileNameOP){
-    QImage imm(fileNameOP);
-    ui->label_imm->setPixmap(QPixmap::fromImage(imm));
-    ui->label_imm->resize(ui->label_imm->pixmap()->size());
+    //QImage imm(fileNameOP);
+    //QImage image;
+    //ui->label_imm->setPixmap(QPixmap::fromImage(imm));
+    //ui->label_imm->resize(ui->label_imm->pixmap()->size());
+    CSBIGImg *newimg = new CSBIGImg;
+    //newimg->OpenImage(fileNameOP);
+
+
+    if(newimg->OpenImage("/home/stefanomandelli/Immagini_Asteroidi/1.fits") != SBFE_NO_ERROR){
+        printf("Immagine NON APERTA\n");
+    }else{
+        printf("Immagine Aperta\n");
+    }
+
+
+    if(newimg->AllocateImageBuffer(newimg->GetHeight(),newimg->GetWidth()) != SBFE_NO_ERROR){
+        std::cout << "Immagine Allocata" << std::endl;
+    }else{
+        std::cout << "Errore di allocazione" << std::endl;
+    }
+
+
+
+
+    //image.setPixel(pSbigImage->GetWidth()*pSbigImage->GetHeight());
+    //image.setNumColors(256);
+    newimg->AutoBackgroundAndRange();
+    string  a;
+    //a= newimg->GetWidth();
+    a= newimg->GetCameraModel();
+    newimg->GetImagePointer();
+
+    QImage pippo;
+    QImage::
+
+    std::cout<< a << std::endl;
+
+
+
 }
 
 void MainWindow::openImage(){
-    QString fileName = QFileDialog::getOpenFileName(this);
+    //QString fileName = QFileDialog::getOpenFileName(this);
+
+    QString fileName;
     loadFileImage(fileName);
+
 }
 
 
@@ -224,6 +265,8 @@ void MainWindow::getImage(){
         QMessageBox::information((QWidget*)0, "Grab Error", "Error to grab image.");
         return;
     }
+
+
 
     //STRINGA TOTALE
     pSbigImage->SaveImage(ui->linePth->text().toLatin1(), fit);
