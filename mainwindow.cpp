@@ -12,8 +12,8 @@
 #include <QPixmap>
 #include <QComboBox>
 #include <string>
-//#include <libusb.h>
-//#include "lpardrv.h"
+#include <libusb.h>
+#include "lpardrv.h"
 #include <csbigcam.h>
 #include <csbigimg.h>
 #include "showimg.h"
@@ -32,10 +32,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedSize(515,465);
-    ui->linePath->setValidator(new QRegExpValidator( QRegExp("[A-Za-z0-9_]"),  this ));
     loadParameters();
     timer = new QTimer(this);
     timer->start(1000);
+    QString yoda = "/home/stefanomandelli/yoda.png";
+    /*QImage imm(yoda);
+    ui->label_imm->setPixmap(QPixmap::fromImage(imm));
+    ui->label_imm->resize(ui->label_imm->pixmap()->size());*/
     //FileMenu
     connect(ui->actionOpen, SIGNAL(activated()), this, SLOT(openImage()));
     connect(ui->Exit, SIGNAL(activated()), this, SLOT(menuExit()));
@@ -68,7 +71,7 @@ void MainWindow::menuExit(){
     out << ui->comboBINN->currentIndex() << "\n";
     out << ui->comboFR->currentIndex()  << "\n";
     out << ui->comboDCM->currentIndex() << "\n";
-    out << ui->linePath->text() ;
+    out << ui->linePth->text() ;
     fileSave.close();
 }
 
@@ -88,7 +91,7 @@ void MainWindow::loadParameters(){
         ui->comboBINN->setCurrentIndex(dd.at(3).toInt());
         ui->comboFR->setCurrentIndex(dd.at(4).toInt());
         ui->comboDCM->setCurrentIndex(dd.at(5).toInt());
-        ui->linePath->setText(dd.at(6));
+        ui->linePth->setText(dd.at(6));
         file.close();
     }else{
         QMessageBox::information(0,"Load Parameters","Non e' stato trovato alcun file di salvataggio. Verranno caricati i parametri di default.");
@@ -121,8 +124,7 @@ void MainWindow::helptecsupp(){
 }
 
 void MainWindow::helpdevel(){
-    QMessageBox::information(0,"Dev","Sviluppatori del Progetto:\n\nStefano Mandelli:\t linuxfree2@gmail.com\
-                                                                    Davide Premoli:\t premodavi@gmail.com");
+    QMessageBox::information(0,"Dev","Sviluppatori del Progetto:\n\nStefano Mandelli:\t linuxfree2@gmail.com ");
 
 }
 
@@ -222,8 +224,11 @@ void MainWindow::getImage(){
         QMessageBox::information((QWidget*)0, "Grab Error", "Error to grab image.");
         return;
     }
-    //errore nel linePath. Non si può modificare. Capire che cazzarola è successo.
-    pSbigImage->SaveImage(ui->linePath->text().toLatin1(), fit);
+
+    //STRINGA TOTALE
+    pSbigImage->SaveImage(ui->linePth->text().toLatin1(), fit);
+
+
 }
 
 

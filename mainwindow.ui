@@ -17,9 +17,9 @@
    <widget class="QGroupBox" name="groupBox_7">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>320</x>
       <y>0</y>
-      <width>191</width>
+      <width>181</width>
       <height>371</height>
      </rect>
     </property>
@@ -31,7 +31,7 @@
       <rect>
        <x>10</x>
        <y>220</y>
-       <width>171</width>
+       <width>161</width>
        <height>61</height>
       </rect>
      </property>
@@ -41,9 +41,9 @@
      <widget class="QComboBox" name="comboBINN">
       <property name="geometry">
        <rect>
-        <x>50</x>
+        <x>34</x>
         <y>20</y>
-        <width>75</width>
+        <width>91</width>
         <height>24</height>
        </rect>
       </property>
@@ -81,7 +81,7 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>171</width>
+       <width>161</width>
        <height>51</height>
       </rect>
      </property>
@@ -114,7 +114,7 @@
       <rect>
        <x>10</x>
        <y>90</y>
-       <width>171</width>
+       <width>161</width>
        <height>51</height>
       </rect>
      </property>
@@ -152,7 +152,7 @@
       <rect>
        <x>10</x>
        <y>160</y>
-       <width>171</width>
+       <width>161</width>
        <height>51</height>
       </rect>
      </property>
@@ -239,7 +239,7 @@
       <rect>
        <x>90</x>
        <y>300</y>
-       <width>91</width>
+       <width>81</width>
        <height>61</height>
       </rect>
      </property>
@@ -271,9 +271,9 @@
    <widget class="QPushButton" name="buttImage">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>320</x>
       <y>380</y>
-      <width>191</width>
+      <width>181</width>
       <height>51</height>
      </rect>
     </property>
@@ -319,6 +319,9 @@
     <property name="inputMask">
      <string/>
     </property>
+    <property name="text">
+     <string>100</string>
+    </property>
     <property name="maxLength">
      <number>3</number>
     </property>
@@ -336,7 +339,7 @@
      <string>Nome Immagini:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="lineName">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -344,6 +347,9 @@
       <width>113</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>Img_</string>
     </property>
     <property name="maxLength">
      <number>32773</number>
@@ -378,30 +384,27 @@
    <widget class="QLabel" name="label_imm">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>40</x>
       <y>180</y>
-      <width>261</width>
-      <height>211</height>
+      <width>251</width>
+      <height>251</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
+    <property name="pixmap">
+     <pixmap>../../yoda.png</pixmap>
+    </property>
    </widget>
-   <widget class="QLineEdit" name="linePath">
+   <widget class="QLineEdit" name="linePth">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>281</width>
+      <width>171</width>
       <height>24</height>
      </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="maxLength">
-     <number>32773</number>
     </property>
    </widget>
   </widget>
