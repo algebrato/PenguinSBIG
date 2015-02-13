@@ -19,18 +19,19 @@ LIBS +=-lsbigudrv
 SOURCES += main.cpp\
         mainwindow.cpp \
         camera.cpp \
-        imageviewer.cpp \
         csbigimg.cpp    \
-        csbigcam.cpp
+        csbigcam.cpp \
+    imageview.cpp
 
 HEADERS  += mainwindow.h \
     camera.h \
-    imageviewer.h \
     csbigimg.h \
     sbigudrv.h \
     lpardrv.h \
-    csbigcam.h
+    csbigcam.h \
+    imageview.h
 
 FORMS    += mainwindow.ui \
-    cameraControl.ui
+    cameraControl.ui \
+    imageview.ui
 

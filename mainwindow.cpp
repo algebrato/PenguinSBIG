@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "imageview.h"
 #include "camera.h"
 #include <QtGui>
 #include <stdio.h>
@@ -104,54 +105,66 @@ void MainWindow::loadParameters(){
 
 }
 
-void MainWindow::loadFileImage(const QString &fileNameOP){
-    //QImage imm(fileNameOP);
-    //QImage image;
-    //ui->label_imm->setPixmap(QPixmap::fromImage(imm));
-    //ui->label_imm->resize(ui->label_imm->pixmap()->size());
+void MainWindow::openImage(){
+    QString fileName = QFileDialog::getOpenFileName(this);
     CSBIGImg *newimg = new CSBIGImg;
-    //newimg->OpenImage(fileNameOP);
+
+    std::cout << fileName.toStdString() << std::endl;
+    std::cout << newimg->GetRange() << std::endl;
+    std::cout << newimg->GetBackground() << std::endl;
 
 
-    if(newimg->OpenImage("/home/stefanomandelli/Immagini_Asteroidi/1.fits") != SBFE_NO_ERROR){
+    /*APRI IMMAGINE*/
+    if(newimg->OpenImage(fileName.toLatin1()) != SBFE_NO_ERROR){
         printf("Immagine NON APERTA\n");
+        return;
     }else{
         printf("Immagine Aperta\n");
     }
 
-
+    /*Alloca memoria (ma è davvero necessario?)*/
     if(newimg->AllocateImageBuffer(newimg->GetHeight(),newimg->GetWidth()) != SBFE_NO_ERROR){
         std::cout << "Immagine Allocata" << std::endl;
     }else{
         std::cout << "Errore di allocazione" << std::endl;
+        return;
+    }
+    ImageView *w = new ImageView();
+    w->show();
+    w->setImage(newimg);
+    newimg = new CSBIGImg;
+    /*QImage image(newimg->GetWidth(), newimg->GetHeight(), QImage::Format_Indexed8);
+    unsigned char *pDest;
+    unsigned short *pVid;
+    long back, range, vid;
+    pDest=image.bits();
+    back=newimg->GetBackground();
+    range=newimg->GetRange();
+    pVid=newimg->GetImagePointer();
+    //pSbigImage->AutoBackgroundAndRange();
+
+    image.setNumColors(256);
+    //newimg->SetBackground(2048);
+
+    for (int i=0;i<newimg->GetHeight();i++) {
+        for (int j=0; j<newimg->GetWidth();j++) {
+            vid=*pVid++;
+            vid-=back;
+            std::cout << vid << "\t" ;
+            if (vid<0) vid=0;
+            else if (vid>=range) vid=255;
+            else vid=(vid*255)/range;
+
+            pDest[j]=vid;
+        }
+        printf("\n");
+        pDest +=image.bytesPerLine();
     }
 
-
-
-
-    //image.setPixel(pSbigImage->GetWidth()*pSbigImage->GetHeight());
-    //image.setNumColors(256);
-    newimg->AutoBackgroundAndRange();
-    string  a;
-    //a= newimg->GetWidth();
-    a= newimg->GetCameraModel();
-    newimg->GetImagePointer();
-
-    QImage pippo;
-    QImage::
-
-    std::cout<< a << std::endl;
-
-
-
-}
-
-void MainWindow::openImage(){
-    //QString fileName = QFileDialog::getOpenFileName(this);
-
-    QString fileName;
-    loadFileImage(fileName);
-
+    pm.convertFromImage(image,0);
+    ui->label_imm->setPixmap(pm);
+    ui->label_imm->resize(ui->label_imm->pixmap()->size());
+    */
 }
 
 

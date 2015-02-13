@@ -36,13 +36,15 @@ private slots:
 
 
 private:
-    void loadFileImage(const QString &fileNameOP);
     void loadParameters();
     Ui::MainWindow *ui;
     cameraControl *cc;
     ImageViewer *w;
     CSBIGImg *pSbigImage;
     CSBIGCam *pSbigCam;
+    QImage image;
+    QPixmap pm;
+    QString filename;
 
 };
 
