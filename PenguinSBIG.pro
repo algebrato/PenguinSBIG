@@ -11,7 +11,7 @@ QMAKE_LFLAGS += "-I /usr/include/libusb-1.0/ -I /data/fits/cfitsio -L /usr/local
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Prove
+TARGET = PenguinSBIG
 TEMPLATE = app
 LIBS +=-lsbigudrv
 
