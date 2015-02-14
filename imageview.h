@@ -21,6 +21,7 @@ public:
     bool loadImage( const QString& , bool bAutoContrast = FALSE);
     void setImage (CSBIGImg *pImg);
 
+
     
 private:
     Ui::ImageView *ui;

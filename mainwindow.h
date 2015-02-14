@@ -46,6 +46,7 @@ private:
     QPixmap pm;
     QString filename;
 
+
 };
 
 
