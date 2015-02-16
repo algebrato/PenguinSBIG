@@ -6,6 +6,7 @@
 #include <iostream>
 #include <QImage>
 #include <QPixmap>
+#include <QFileDialog>
 #include <Qt>
 #include <Qt3Support/Q3ScrollView>
 #include <Qt3Support/Q3Painter>
@@ -17,6 +18,7 @@ ImageView::ImageView(QWidget *parent) :
 {
     this->setFixedSize(800,600);
     ui->setupUi(this);
+    connect(ui->actionOpen, SIGNAL(activated()), this, SLOT(OpenImageInW()));
 
 
 }
@@ -27,6 +29,27 @@ void ImageView::setImage(CSBIGImg *pImg){
     pSbigImage = pImg;
     loadImage(QString::null, TRUE);
 }
+
+
+void ImageView::OpenImageInW(){
+    QString fileName = QFileDialog::getOpenFileName(this);
+    CSBIGImg *newimg = new CSBIGImg;
+
+    std::cout << fileName.toStdString() << std::endl;
+    std::cout << newimg->GetRange() << std::endl;
+    std::cout << newimg->GetBackground() << std::endl;
+
+    /*APRI IMMAGINE*/
+    if(newimg->OpenImage(fileName.toLatin1()) != SBFE_NO_ERROR){
+        printf("Immagine NON APERTA\n");
+        return;
+    }else{
+        printf("Immagine Aperta\n");
+    }
+    pSbigImage = newimg;
+    loadImage(QString::null, TRUE);
+}
+
 
 
 

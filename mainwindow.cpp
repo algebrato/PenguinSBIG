@@ -37,10 +37,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     this->setFixedSize(515,465);
     loadParameters();
     timer = new QTimer(this);
     timer->start(1000);
+
     QString yoda = "/home/stefanomandelli/yoda.png";
     /*QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
@@ -123,11 +125,11 @@ void MainWindow::openImage(){
     }else{
         printf("Immagine Aperta\n");
     }
-
     ImageView *w = new ImageView();
     w->show();
     w->setImage(newimg);
-    newimg = new CSBIGImg;
+
+
 }
 
 
@@ -214,19 +216,6 @@ void MainWindow::getImage(){
         return;
 
     }
-    /*if((err=pSbigCam->OpenDriver()) != CE_NO_ERROR) {
-        QMessageBox::information((QWidget*)0, "Link Error", "Error opening camera driver.");
-        return;
-    }
-    if((err=pSbigCam->OpenDevice(odp)) != CE_NO_ERROR) {
-        QMessageBox::information((QWidget*)0, "Link Error", "Error opening camera device.");
-        return;
-    }
-    if((err=pSbigCam->EstablishLink()) != CE_NO_ERROR) {
-        QMessageBox::information((QWidget*)0, "Link Error", "Error establishing link to camera.");
-        return;
-    }*/
-
     ui->labelStatus->setText("Link is UP!");
     pSbigCam->SetActiveCCD(CCD_IMAGING);
     pSbigCam->SetExposureTime(ui->exposureFld->text().toDouble());
@@ -246,8 +235,10 @@ void MainWindow::getImage(){
 
 
 
-    //STRINGA TOTALE
-    pSbigImage->SaveImage("./Ciao", fit);
+
+
+    //STRINGA TOTALE//A questo ci si può pensare anche dopo;
+    //pSbigImage->SaveImage("./Ciao", fit);
 
 
 }

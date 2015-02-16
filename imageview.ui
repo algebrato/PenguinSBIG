@@ -62,8 +62,9 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>&amp;File</string>
     </property>
+    <addaction name="actionOpen"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuFile"/>
@@ -71,7 +72,12 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
    <property name="text">
-    <string>Exit</string>
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>&amp;Open</string>
    </property>
   </action>
  </widget>

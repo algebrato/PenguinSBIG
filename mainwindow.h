@@ -35,6 +35,7 @@ private slots:
 
 
 
+
 private:
     void loadParameters();
     Ui::MainWindow *ui;
