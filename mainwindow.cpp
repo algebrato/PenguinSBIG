@@ -214,7 +214,7 @@ void MainWindow::getImage(){
         return;
 
     }
-    if((err=pSbigCam->OpenDriver()) != CE_NO_ERROR) {
+    /*if((err=pSbigCam->OpenDriver()) != CE_NO_ERROR) {
         QMessageBox::information((QWidget*)0, "Link Error", "Error opening camera driver.");
         return;
     }
@@ -225,7 +225,7 @@ void MainWindow::getImage(){
     if((err=pSbigCam->EstablishLink()) != CE_NO_ERROR) {
         QMessageBox::information((QWidget*)0, "Link Error", "Error establishing link to camera.");
         return;
-    }
+    }*/
 
     ui->labelStatus->setText("Link is UP!");
     pSbigCam->SetActiveCCD(CCD_IMAGING);
@@ -235,16 +235,19 @@ void MainWindow::getImage(){
     pSbigCam->SetFastReadout(bFastReadout);
     pSbigCam->SetDualChannelMode(bDualChannelMode);
     pSbigCam->GetFullFrame(fullWidth,fullHeight);
+    pSbigImage->AllocateImageBuffer(fullHeight,fullWidth);
 
     if((err = pSbigCam->GrabImage(pSbigImage,df)) != CE_NO_ERROR){
         QMessageBox::information((QWidget*)0, "Grab Error", "Error to grab image.");
         return;
     }
+    QMessageBox::information((QWidget*)0, "Grab Image", "Image Grabbed");
+
 
 
 
     //STRINGA TOTALE
-    pSbigImage->SaveImage(ui->linePth->text().toLatin1(), fit);
+    pSbigImage->SaveImage("./Ciao", fit);
 
 
 }
