@@ -39,6 +39,9 @@
     <property name="widgetResizable">
      <bool>true</bool>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
     <widget class="QWidget" name="scrollAreaWidgetContents">
      <property name="geometry">
       <rect>
@@ -67,7 +70,14 @@
     <addaction name="actionOpen"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menu_Image">
+    <property name="title">
+     <string>&amp;Image</string>
+    </property>
+    <addaction name="actionOpenH"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menu_Image"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionExit">
@@ -78,6 +88,11 @@
   <action name="actionOpen">
    <property name="text">
     <string>&amp;Open</string>
+   </property>
+  </action>
+  <action name="actionOpenH">
+   <property name="text">
+    <string>Open Header</string>
    </property>
   </action>
  </widget>

@@ -19,10 +19,14 @@ ImageView::ImageView(QWidget *parent) :
     this->setFixedSize(800,600);
     ui->setupUi(this);
     connect(ui->actionOpen, SIGNAL(activated()), this, SLOT(OpenImageInW()));
-
+    connect(ui->actionOpenH, SIGNAL(activated()), this, SLOT(getHeader()));
 
 }
 
+
+void ImageView::getHeader(){
+
+}
 
 
 void ImageView::setImage(CSBIGImg *pImg){

@@ -38,15 +38,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setFixedSize(515,465);
+    this->setFixedSize(670,465);
     loadParameters();
     timer = new QTimer(this);
     timer->start(1000);
 
-    QString yoda = "/home/stefanomandelli/yoda.png";
-    /*QImage imm(yoda);
+    QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
+    QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
-    ui->label_imm->resize(ui->label_imm->pixmap()->size());*/
+    ui->label_imm->resize(ui->label_imm->pixmap()->size());
     //FileMenu
     connect(ui->actionOpen, SIGNAL(activated()), this, SLOT(openImage()));
     connect(ui->Exit, SIGNAL(activated()), this, SLOT(menuExit()));
@@ -58,7 +58,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //MainForm Objects
     connect(timer, SIGNAL(timeout()), this, SLOT(updateStat())); //forse non serve
-    connect(ui->buttImage, SIGNAL(clicked()), this, SLOT(getImage()));
+    connect(ui->estLink, SIGNAL(clicked()), this, SLOT(getImage()));
+    connect(ui->butshut, SIGNAL(clicked()), this, SLOT(closeConnection()));
 
 }
 
@@ -125,7 +126,7 @@ void MainWindow::openImage(){
     }else{
         printf("Immagine Aperta\n");
     }
-    ImageView *w = new ImageView();
+    ImageView *w = new ImageView();QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_u.png");
     w->show();
     w->setImage(newimg);
 
@@ -153,13 +154,52 @@ void MainWindow::helpversion(){
 }
 
 
+void MainWindow::closeConnection(){
+    if(pSbigCam){
+        pSbigCam->CloseDevice();
+        pSbigCam->CloseDriver();
+
+        QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png");
+        ui->label_imm->setPixmap(QPixmap::fromImage(imm));
+        ui->label_imm->resize(ui->label_imm->pixmap()->size());
+    }
+}
 
 
+void MainWindow::openConnection(){
+    OpenDeviceParams odp;
+    odp.deviceType = DEV_USB1;
+    int err;
+
+    if((err=pSbigCam->OpenDriver()) != CE_NO_ERROR)
+        QMessageBox::information(0,"Error in OpenDriver","Errore nell'aprtura del Driver della camera.");
+
+    if((err=pSbigCam->OpenDevice(odp)) != CE_NO_ERROR)
+            QMessageBox::information(0,"Error in OpenDevice","Errore nell'aprtura del dispositivo camera.");
+
+    if((err=pSbigCam->EstablishLink()) != CE_NO_ERROR)
+            QMessageBox::information(0,"Error in Link Status","Errore nel collegamento.");
 
 
+    QString *cT = new QString(pSbigCam->GetCameraTypeString().c_str());
+    *cT = "Link to: " + *cT + "on USB";
+    ui->lab_conn->setText(cT->toAscii());
+    QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_u.png");
+    ui->label_imm->setPixmap(QPixmap::fromImage(imm));
+    ui->label_imm->resize(ui->label_imm->pixmap()->size());
+
+    //update object status ...
+
+    double ccdTemp, setpointTemp, percentTE;
+    MY_LOGICAL enabled;
+    QString qs;
+    pSbigCam->QueryTemperatureStatus(enabled, ccdTemp, setpointTemp, percentTE);
+    qs.setNum(setpointTemp, 'f',2);
+    ui->coolingSetpoint->setText(qs.toAscii());
+}
 
 
-void MainWindow::getImage(){
+void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... ripensarla per il loopfocus.
     PAR_ERROR err = CE_NO_ERROR;
 
     int rm = ui->comboBINN->currentIndex();
@@ -212,11 +252,14 @@ void MainWindow::getImage(){
 
     if((err = pSbigCam->EstablishLink()) != CE_NO_ERROR){
         QMessageBox::information(0, "Link Error", "Camera link is down");
-        ui->labelStatus->setText("Link is DOWN!");
         return;
 
     }
-    ui->labelStatus->setText("Link is UP!");
+    QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_u.png");
+    ui->label_imm->setPixmap(QPixmap::fromImage(imm));
+    ui->label_imm->resize(ui->label_imm->pixmap()->size());
+
+
     pSbigCam->SetActiveCCD(CCD_IMAGING);
     pSbigCam->SetExposureTime(ui->exposureFld->text().toDouble());
     pSbigCam->SetReadoutMode(rm);

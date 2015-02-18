@@ -6,6 +6,7 @@
 #include <csbigimg.h>
 #include <QImage>
 #include <QPixmap>
+#include "imageinfo.h"
 
 namespace Ui {
 class ImageView;
@@ -23,7 +24,7 @@ public:
 
 private slots:
     void OpenImageInW();
-
+    void getHeader();
 
     
 private:
@@ -32,6 +33,7 @@ private:
     CSBIGCam *pSbigCam;
     QImage image;
     QPixmap pm;
+    imageInfo *ImgInfo;
 };
 
 #endif // IMAGEVIEW_H

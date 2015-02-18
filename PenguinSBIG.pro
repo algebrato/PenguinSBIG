@@ -21,7 +21,8 @@ SOURCES += main.cpp\
         camera.cpp \
         csbigimg.cpp    \
         csbigcam.cpp \
-    imageview.cpp
+    imageview.cpp \
+    imageinfo.cpp
 
 HEADERS  += mainwindow.h \
     camera.h \
@@ -29,9 +30,11 @@ HEADERS  += mainwindow.h \
     sbigudrv.h \
     lpardrv.h \
     csbigcam.h \
-    imageview.h
+    imageview.h \
+    imageinfo.h
 
 FORMS    += mainwindow.ui \
     cameraControl.ui \
-    imageview.ui
+    imageview.ui \
+    imageinfo.ui
 

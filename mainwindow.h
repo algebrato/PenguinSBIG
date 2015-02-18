@@ -32,6 +32,8 @@ private slots:
     void helptecsupp();
     void helpdevel();
     void helpversion();
+    void closeConnection();
+    void openConnection();
 
 
 
