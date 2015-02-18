@@ -126,7 +126,8 @@ void MainWindow::openImage(){
     }else{
         printf("Immagine Aperta\n");
     }
-    ImageView *w = new ImageView();QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_u.png");
+    ImageView *w = new ImageView();
+    //QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_u.png"); ???
     w->show();
     w->setImage(newimg);
 

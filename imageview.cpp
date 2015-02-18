@@ -25,8 +25,11 @@ ImageView::ImageView(QWidget *parent) :
 
 
 void ImageView::getHeader(){
-
+    imageInfo *w = new imageInfo();
+    w->show();
+    w->setImage(pSbigImage);
 }
+
 
 
 void ImageView::setImage(CSBIGImg *pImg){

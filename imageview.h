@@ -34,6 +34,7 @@ private:
     QImage image;
     QPixmap pm;
     imageInfo *ImgInfo;
+    imageInfo *w;
 };
 
 #endif // IMAGEVIEW_H
