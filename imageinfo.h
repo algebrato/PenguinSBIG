@@ -2,6 +2,7 @@
 #define IMAGEINFO_H
 
 #include <QWidget>
+#include <Qt3Support/Q3TextEdit>
 #include "csbigcam.h"
 #include "csbigimg.h"
 
