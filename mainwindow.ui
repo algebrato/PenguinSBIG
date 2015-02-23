@@ -696,6 +696,19 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="TestGrub">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>330</y>
+      <width>91</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Grub Image</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
