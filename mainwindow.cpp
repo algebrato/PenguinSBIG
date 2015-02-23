@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     immagine = new CSBIGImg();
 
 
-    QString yoda = "/home/algebrato/.PenguinSBIG/yoda_l_d.png";
+    QString yoda = "~/.PenguinSBIG/yoda_l_d.png";
     QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
@@ -168,7 +168,7 @@ void MainWindow::closeConnection(){
         camera->CloseDevice();
         camera->CloseDriver();
 
-        QImage imm("/home/algebrato/.PenguinSBIG/yoda_l_d.png");
+        QImage imm("~/.PenguinSBIG/yoda_l_d.png");
         ui->label_imm->setPixmap(QPixmap::fromImage(imm));
         ui->label_imm->resize(ui->label_imm->pixmap()->size());
         link_status=false;
@@ -205,7 +205,7 @@ void MainWindow::openConnection(){
     QString *cT = new QString(camera->GetCameraTypeString().c_str());
     *cT = "Link to: " + *cT + "on USB";
     ui->lab_conn->setText(cT->toAscii());
-    QImage imm("/home/algebrato/.PenguinSBIG/yoda_l_u.png");
+    QImage imm("~/.PenguinSBIG/yoda_l_u.png");
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
     link_status=true;
