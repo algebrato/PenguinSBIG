@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     immagine = new CSBIGImg();
 
 
-    QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
+    QString yoda = "/home/algebrato/.PenguinSBIG/yoda_l_d.png";
     QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
@@ -68,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(ui->estLink, SIGNAL(clicked()), this, SLOT(getImage()));
     connect(ui->estLink, SIGNAL(clicked()), this, SLOT(openConnection()));
     connect(ui->butshut, SIGNAL(clicked()), this, SLOT(closeConnection()));
+    connect(ui->TestGrub, SIGNAL(clicked()), this, SLOT(getImage()));
 
 }
 
@@ -163,11 +164,11 @@ void MainWindow::helpversion(){
 
 
 void MainWindow::closeConnection(){
-    if(pSbigCam){
-        pSbigCam->CloseDevice();
-        pSbigCam->CloseDriver();
+    if(camera){
+        camera->CloseDevice();
+        camera->CloseDriver();
 
-        QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png");
+        QImage imm("/home/algebrato/.PenguinSBIG/yoda_l_d.png");
         ui->label_imm->setPixmap(QPixmap::fromImage(imm));
         ui->label_imm->resize(ui->label_imm->pixmap()->size());
         link_status=false;
@@ -204,7 +205,7 @@ void MainWindow::openConnection(){
     QString *cT = new QString(camera->GetCameraTypeString().c_str());
     *cT = "Link to: " + *cT + "on USB";
     ui->lab_conn->setText(cT->toAscii());
-    QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_u.png");
+    QImage imm("/home/algebrato/.PenguinSBIG/yoda_l_u.png");
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
     link_status=true;
@@ -297,7 +298,7 @@ void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... 
 
     //STRINGA TOTALE//A questo ci si può pensare anche dopo;
     immagine->SaveImage(Tot->toAscii(), fit);
-
+    //free(immagine); Al secondo va in segfault. Trovare il modo di liberare la memoria
 
 }
 
