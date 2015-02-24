@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 #include <QtGui/QMainWindow>
 #include <QtGui/QPushButton>
+#include <QTimer>
 #include <QMainWindow>
 #include "camera.h"
 #include "csbigimg.h"
@@ -33,6 +34,8 @@ private slots:
     void helpversion();
     void closeConnection();
     void openConnection();
+    void testProgress();
+    void test();
 
 
 
@@ -47,6 +50,8 @@ private:
     QImage image;
     QPixmap pm;
     QString filename;
+    QTimer *t;
+    int progress;
 
 
 };

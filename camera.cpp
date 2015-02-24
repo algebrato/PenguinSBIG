@@ -22,6 +22,7 @@ cameraControl::cameraControl(QDialog *parent) :
     ui->setupUi(this);
     connect(ui->actionExit, SIGNAL(activated()), this, SLOT(close()));
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTemp()));
+
 }
 
 void cameraControl::setCam(CSBIGCam *pCam){

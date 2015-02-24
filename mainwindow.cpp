@@ -27,6 +27,7 @@ CSBIGCam *camera;
 CSBIGImg *immagine;
 ImageView *www;
 
+
 bool link_status=false;
 
 
@@ -40,11 +41,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    progress=0;
     this->setFixedSize(670,465);
     loadParameters();
     camera = new CSBIGCam();
     immagine = new CSBIGImg();
+
+    //Questa cosa dovrebbe essere di spunto per la barra di acquisizione dell'immagine
+    t = new QTimer(this);
+    connect(t, SIGNAL(timeout()), this, SLOT(test()));
+    t->start(100);
+
 
 
     QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
@@ -64,6 +71,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->estLink, SIGNAL(clicked()), this, SLOT(openConnection()));
     connect(ui->butshut, SIGNAL(clicked()), this, SLOT(closeConnection()));
     connect(ui->TestGrub, SIGNAL(clicked()), this, SLOT(getImage()));
+
+
+
+
+
 
 }
 
@@ -117,6 +129,30 @@ void MainWindow::loadParameters(){
 
 
 }
+
+
+void MainWindow::testProgress(){
+    printf("Inizio riprese...\n");
+    double expTime;
+    expTime=ui->exposureFld->text().toDouble();
+    //QTimer *timer=(QTimer *)0;
+    //timer = new QTimer(this);
+    //timer->start(1000);
+    //connect(timer, SIGNAL(timeout()), this, SLOT(updateprogress(expTime)));
+    printf("BLA BLA BLA \n");
+    return;
+}
+
+void MainWindow::test(){
+    ui->progressBar->setValue(progress);
+    progress += 1;
+    if(progress > 100)
+        t->stop();
+    std::cout<< progress << std::endl;
+}
+
+
+
 
 void MainWindow::openImage(){
     QString fileName = QFileDialog::getOpenFileName(this);
