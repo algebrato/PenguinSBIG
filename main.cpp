@@ -10,7 +10,5 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
-
-    //prendere in considerazione il fatto di far partire qui il controllo temperatura
     return a.exec();
 }

@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     immagine = new CSBIGImg();
 
 
-    QString yoda = "~/.PenguinSBIG/yoda_l_d.png";
+    QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
     QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
@@ -91,6 +91,9 @@ void MainWindow::menuExit(){
     out << ui->comboDCM->currentIndex() << "\n";
     out << ui->linePth->text() ;
     fileSave.close();
+    if(immagine) delete(immagine);
+    if(camera) delete(camera);
+
 }
 
 void MainWindow::loadParameters(){
@@ -138,8 +141,6 @@ void MainWindow::openImage(){
     ImageView *w = new ImageView();
     w->show();
     w->setImage(newimg);
-
-
 }
 
 
@@ -168,7 +169,7 @@ void MainWindow::closeConnection(){
         camera->CloseDevice();
         camera->CloseDriver();
 
-        QImage imm("~/.PenguinSBIG/yoda_l_d.png");
+        QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png");
         ui->label_imm->setPixmap(QPixmap::fromImage(imm));
         ui->label_imm->resize(ui->label_imm->pixmap()->size());
         link_status=false;
@@ -203,21 +204,23 @@ void MainWindow::openConnection(){
 
 
     QString *cT = new QString(camera->GetCameraTypeString().c_str());
-    *cT = "Link to: " + *cT + "on USB";
+    *cT = "Link to: " + *cT + "on USB"; //non si vede tutta nella label sopra l'immagine.
     ui->lab_conn->setText(cT->toAscii());
-    QImage imm("~/.PenguinSBIG/yoda_l_u.png");
+    QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_u.png");
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
     link_status=true;
 
-    //update object status ...
 
+    //UPDATE STATUS TEMPERATURA // Pensare di spostare questa parte (e la relativa parte di stabilizzazione delle temperatura, in una classe separata
     double ccdTemp, setpointTemp, percentTE;
     MY_LOGICAL enabled;
-    QString qs;
+    QString qs, tem;
     camera->QueryTemperatureStatus(enabled, ccdTemp, setpointTemp, percentTE);
     qs.setNum(setpointTemp, 'f',2);
     ui->coolingSetpoint->setText(qs.toAscii());
+    tem.setNum(ccdTemp, 'f', 2);
+    ui->ccdTempLbl->setText(tem.toAscii());
 }
 
 
@@ -296,9 +299,8 @@ void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... 
     else
         *Tot +=".SBIG";
 
-    //STRINGA TOTALE//A questo ci si può pensare anche dopo;
     immagine->SaveImage(Tot->toAscii(), fit);
-    //free(immagine); Al secondo va in segfault. Trovare il modo di liberare la memoria
+    immagine = new CSBIGImg();
 
 }
 
