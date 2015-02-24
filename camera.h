@@ -3,6 +3,7 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QPushButton>
 #include "ui_cameraControl.h"
+#include "csbigcam.h"
 
 
 namespace Ui {
@@ -17,8 +18,14 @@ public:
     explicit cameraControl(QDialog *parent = 0);
     ~cameraControl();
 
+private slots:
+    void setCam(CSBIGCam *pCam);
+    void updateTemp();
+    void setTemp();
+
 private:
     Ui::cameraControl *ui;
+    CSBIGCam *pSbigCam;
 };
 
 

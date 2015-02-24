@@ -24,7 +24,6 @@ public:
 private slots:
     void cameraSetup();
     void init();
-    void updateStat();
     void openImage();
     void getImage();
     void menuExit();

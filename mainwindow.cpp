@@ -31,7 +31,6 @@ bool link_status=false;
 
 
 
-QTimer *timer=(QTimer *)0;
 namespace Ui{
 class MainWindow;
 }
@@ -44,8 +43,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setFixedSize(670,465);
     loadParameters();
-    timer = new QTimer(this);
-    timer->start(1000);
     camera = new CSBIGCam();
     immagine = new CSBIGImg();
 
@@ -63,8 +60,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //CameraMenu
     connect(ui->cameraSetup, SIGNAL(activated()), this, SLOT(cameraSetup()));
 
-    //MainForm Objects
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateStat())); //forse non serve
     //connect(ui->estLink, SIGNAL(clicked()), this, SLOT(getImage()));
     connect(ui->estLink, SIGNAL(clicked()), this, SLOT(openConnection()));
     connect(ui->butshut, SIGNAL(clicked()), this, SLOT(closeConnection()));
@@ -310,10 +305,6 @@ void MainWindow::init(){
 
 }
 
-void MainWindow::updateStat(){
-
-
-}
 
 void MainWindow::cameraSetup()
 {
