@@ -22,6 +22,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+
 private slots:
     void cameraSetup();
     void init();
@@ -34,10 +36,8 @@ private slots:
     void helpversion();
     void closeConnection();
     void openConnection();
-    void testProgress();
-    void test();
-
-
+    void progBar(double timeEx);
+    void prova();
 
 
 private:
@@ -57,4 +57,4 @@ private:
 };
 
 
-#endif // MAINWINDOW_H*/
+#endif // MAINWINDOW_H*//

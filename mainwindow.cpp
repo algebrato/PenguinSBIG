@@ -47,13 +47,6 @@ MainWindow::MainWindow(QWidget *parent) :
     camera = new CSBIGCam();
     immagine = new CSBIGImg();
 
-    //Questa cosa dovrebbe essere di spunto per la barra di acquisizione dell'immagine
-    t = new QTimer(this);
-    connect(t, SIGNAL(timeout()), this, SLOT(test()));
-    t->start(100);
-
-
-
     QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
     QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
@@ -67,17 +60,26 @@ MainWindow::MainWindow(QWidget *parent) :
     //CameraMenu
     connect(ui->cameraSetup, SIGNAL(activated()), this, SLOT(cameraSetup()));
 
-    //connect(ui->estLink, SIGNAL(clicked()), this, SLOT(getImage()));
+    //Bottoni
     connect(ui->estLink, SIGNAL(clicked()), this, SLOT(openConnection()));
     connect(ui->butshut, SIGNAL(clicked()), this, SLOT(closeConnection()));
     connect(ui->TestGrub, SIGNAL(clicked()), this, SLOT(getImage()));
 
-
-
-
-
+    //testBarra
+    connect(ui->butFocus, SIGNAL(clicked()), this, SLOT(prova()));
 
 }
+
+void MainWindow::prova(){
+    progress=0;
+    double timeEx;
+    timeEx=ui->exposureFld->text().toDouble();
+    t = new QTimer(this);
+    connect(t, SIGNAL(timeout()), this, SLOT(progBar(timeEx)));
+    t->start(1000);
+    return;
+}
+
 
 
 MainWindow::~MainWindow()
@@ -124,30 +126,17 @@ void MainWindow::loadParameters(){
     }else{
         QMessageBox::information(0,"Load Parameters","Non e' stato trovato alcun file di salvataggio. Verranno caricati i parametri di default.");
     }
-
-
-
-
 }
 
 
-void MainWindow::testProgress(){
-    printf("Inizio riprese...\n");
-    double expTime;
-    expTime=ui->exposureFld->text().toDouble();
-    //QTimer *timer=(QTimer *)0;
-    //timer = new QTimer(this);
-    //timer->start(1000);
-    //connect(timer, SIGNAL(timeout()), this, SLOT(updateprogress(expTime)));
-    printf("BLA BLA BLA \n");
-    return;
-}
 
-void MainWindow::test(){
+void MainWindow::progBar(double timeEx){
     ui->progressBar->setValue(progress);
-    progress += 1;
-    if(progress > 100)
+    progress += 1*(100/timeEx) ;
+    if(progress > 100){
+        progress = 100;
         t->stop();
+    }
     std::cout<< progress << std::endl;
 }
 
@@ -303,6 +292,7 @@ void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... 
     double timeEx;
     int numOfImage;
     int top, left, width, fullWidth, height, fullHeight;
+    timeEx = ui->exposureFld->text().toDouble();
 
     camera->SetActiveCCD(CCD_IMAGING);
     camera->SetExposureTime(ui->exposureFld->text().toDouble());
@@ -317,6 +307,11 @@ void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... 
         QMessageBox::information((QWidget*)0, "Grab Error", "Error to grab image.");
         return;
     }
+    progress=0;
+    t = new QTimer(this);
+    connect(t, SIGNAL(timeout()), this, SLOT(progBar(timeEx)));
+    t->start(1000);
+
     QMessageBox::information((QWidget*)0, "Grab Image", "Image Grabbed");
     www = new ImageView;
     www->show();
