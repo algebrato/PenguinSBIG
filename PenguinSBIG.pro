@@ -8,6 +8,8 @@ QT       += core gui
 
 QMAKE_CXXFLAGS = "-I /usr/include/libusb-1.0/ -I /data/fits/cfitsio -L /usr/local/lib -L /data/fits/cfitsio/lib/"
 QMAKE_LFLAGS += "-I /usr/include/libusb-1.0/ -I /data/fits/cfitsio -L /usr/local/lib -L /data/fits/cfitsio/lib/ -lcfitsio -lm"
+QMAKE_CXXFLAGS += -std=c++0x
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

@@ -21,7 +21,8 @@
 #include <iostream>
 #include <fitsio.h>
 #include <fitsio2.h>
-
+#include <list>
+#include <iterator>
 
 CSBIGCam *camera;
 CSBIGImg *immagine;
@@ -41,11 +42,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //www->show(); //non funziona sta roba
     progress=0;
     this->setFixedSize(670,465);
     loadParameters();
     camera = new CSBIGCam();
     immagine = new CSBIGImg();
+
 
     QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
     QImage imm(yoda);
@@ -66,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->TestGrub, SIGNAL(clicked()), this, SLOT(getImage()));
 
     //testBarra
-    connect(ui->butFocus, SIGNAL(clicked()), this, SLOT(prova()));
+    connect(ui->butFocus, SIGNAL(clicked()), this, SLOT(provaLoop()));
 
 }
 
@@ -100,6 +103,7 @@ void MainWindow::menuExit(){
     out << ui->comboDCM->currentIndex() << "\n";
     out << ui->linePth->text() ;
     fileSave.close();
+
     if(immagine) delete(immagine);
     if(camera) delete(camera);
 
@@ -138,6 +142,37 @@ void MainWindow::progBar(double timeEx){
         t->stop();
     }
     std::cout<< progress << std::endl;
+}
+
+
+
+void MainWindow::provaLoop(){
+
+    std::list<const char*> listaNomi = {"img1.FIT", "img2.FIT", "img3.FIT"};
+    CSBIGImg *newimg = new CSBIGImg;
+
+    ImageView *w = new ImageView();
+    w->show();
+
+
+    for(std::list<const char*>::iterator it = listaNomi.begin(); it!=listaNomi.end(); it++){
+        std::cout << *it << std::endl;
+        std::cout << std::endl;
+
+        if(newimg->OpenImage(*it) != SBFE_NO_ERROR){
+            printf("Immagine NON APERTA\n");
+            return;
+            //w->~ImageView();
+            //delete(w);
+        }else{
+            printf("Immagine Aperta\n");
+        }
+        w->setImage(newimg);
+        delete(newimg); //qui funziona anche senza perchè c'è OpenImage(*it) e non c'è il get pSgib... = immagine ... forse
+        CSBIGImg *newimg = new CSBIGImg;
+        sleep(1);
+    }
+
 }
 
 
@@ -330,11 +365,6 @@ void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... 
 
 }
 
-
-
-void MainWindow::init(){
-
-}
 
 
 void MainWindow::cameraSetup()

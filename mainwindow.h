@@ -26,7 +26,6 @@ public:
 
 private slots:
     void cameraSetup();
-    void init();
     void openImage();
     void getImage();
     void menuExit();
@@ -38,6 +37,7 @@ private slots:
     void openConnection();
     void progBar(double timeEx);
     void prova();
+    void provaLoop();
 
 
 private:
