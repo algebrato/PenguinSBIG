@@ -4,7 +4,7 @@
 #include "csbigimg.h"
 #include "csbigcam.h"
 #include "iostream"
-
+//Prova
 
 imageInfo::imageInfo(QWidget *parent) :
     QWidget(parent),
