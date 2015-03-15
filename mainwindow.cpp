@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "ui_imageview.h"
 #include "imageview.h"
 #include "camera.h"
 #include <QtGui>
@@ -50,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     immagine = new CSBIGImg();
 
 
+
     QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
     QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
@@ -70,6 +72,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //testBarra
     connect(ui->butFocus, SIGNAL(clicked()), this, SLOT(provaLoop()));
+
 
 }
 
@@ -146,14 +149,13 @@ void MainWindow::progBar(double timeEx){
 
 
 
+
 void MainWindow::provaLoop(){
 
     std::list<const char*> listaNomi = {"img1.FIT", "img2.FIT", "img3.FIT"};
     CSBIGImg *newimg = new CSBIGImg;
-
     ImageView *w = new ImageView();
     w->show();
-
 
     for(std::list<const char*>::iterator it = listaNomi.begin(); it!=listaNomi.end(); it++){
         std::cout << *it << std::endl;
@@ -162,15 +164,14 @@ void MainWindow::provaLoop(){
         if(newimg->OpenImage(*it) != SBFE_NO_ERROR){
             printf("Immagine NON APERTA\n");
             return;
-            //w->~ImageView();
-            //delete(w);
         }else{
             printf("Immagine Aperta\n");
         }
+
         w->setImage(newimg);
         delete(newimg); //qui funziona anche senza perchè c'è OpenImage(*it) e non c'è il get pSgib... = immagine ... forse
         CSBIGImg *newimg = new CSBIGImg;
-        sleep(1);
+        std::cout<< "prova" << endl;
     }
 
 }

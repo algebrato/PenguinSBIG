@@ -94,6 +94,7 @@ bool ImageView::loadImage(const QString& fileName, bool bAutoContrast /* = FALSE
     ui->labelImm->resize(ui->labelImm->pixmap()->size());
     ui->scrollArea->setWidget(ui->labelImm);
 
+
 }
 
 
