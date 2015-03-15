@@ -181,7 +181,7 @@
        </size>
       </property>
       <property name="inputMask">
-       <string>009.999</string>
+       <string>009.999; </string>
       </property>
       <property name="text">
        <string>.</string>
@@ -444,7 +444,7 @@
       </size>
      </property>
      <property name="inputMask">
-      <string>009.999</string>
+      <string>009.999; </string>
      </property>
      <property name="text">
       <string>.</string>
@@ -542,7 +542,7 @@
       <x>270</x>
       <y>170</y>
       <width>201</width>
-      <height>131</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="title">
@@ -551,8 +551,8 @@
     <widget class="QLineEdit" name="coolingSetpoint">
      <property name="geometry">
       <rect>
-       <x>80</x>
-       <y>70</y>
+       <x>70</x>
+       <y>60</y>
        <width>50</width>
        <height>31</height>
       </rect>
@@ -564,7 +564,7 @@
       </size>
      </property>
      <property name="inputMask">
-      <string>#09.99</string>
+      <string>#09.99; </string>
      </property>
      <property name="text">
       <string>.</string>
@@ -573,8 +573,8 @@
     <widget class="QLabel" name="textLabel12">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>80</y>
+       <x>0</x>
+       <y>70</y>
        <width>70</width>
        <height>21</height>
       </rect>
@@ -595,7 +595,7 @@
     <widget class="QLabel" name="ccdTempLbl">
      <property name="geometry">
       <rect>
-       <x>90</x>
+       <x>100</x>
        <y>40</y>
        <width>71</width>
        <height>21</height>
@@ -611,7 +611,7 @@
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>39</y>
        <width>101</width>
        <height>21</height>
@@ -624,8 +624,8 @@
     <widget class="QCheckBox" name="enableChkBox">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>90</y>
+       <x>130</x>
+       <y>60</y>
        <width>70</width>
        <height>31</height>
       </rect>
@@ -640,7 +640,7 @@
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>19</y>
        <width>101</width>
        <height>21</height>
@@ -653,7 +653,7 @@
     <widget class="QLabel" name="ccdPower">
      <property name="geometry">
       <rect>
-       <x>60</x>
+       <x>70</x>
        <y>20</y>
        <width>71</width>
        <height>21</height>
@@ -742,7 +742,7 @@
      <x>0</x>
      <y>0</y>
      <width>663</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="File">

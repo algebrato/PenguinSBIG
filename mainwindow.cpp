@@ -54,13 +54,12 @@ MainWindow::MainWindow(QWidget *parent) :
     timer->start(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(QTemp()));
 
-<<<<<<< HEAD
 
 
-    QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
-=======
+
+
     QString yoda = "/home/algebrato/.PenguinSBIG/yoda_l_d.png";
->>>>>>> 0ec01030d0ac3c3d317422fc86c35a5ffff24f6a
+
     QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
