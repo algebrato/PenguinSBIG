@@ -8,7 +8,7 @@
 #include "csbigcam.h"
 
 
-QTimer *timer=(QTimer *)0;
+QTimer *timer2=(QTimer *)0;
 namespace Ui{
 class cameraControl;
 }
@@ -17,11 +17,11 @@ cameraControl::cameraControl(QDialog *parent) :
     QDialog(parent),
     ui(new Ui::cameraControl)
 {
-    timer = new QTimer(this);
-    timer->start(1000);
+    timer2 = new QTimer(this);
+    timer2->start(1000);
     ui->setupUi(this);
     connect(ui->actionExit, SIGNAL(activated()), this, SLOT(close()));
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateTemp()));
+    connect(timer2, SIGNAL(timeout()), this, SLOT(updateTemp()));
 
 }
 
