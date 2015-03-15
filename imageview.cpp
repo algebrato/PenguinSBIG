@@ -11,7 +11,7 @@
 #include <Qt3Support/Q3ScrollView>
 #include <Qt3Support/Q3Painter>
 
-
+//Prova
 ImageView::ImageView(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ImageView)
