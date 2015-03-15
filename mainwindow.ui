@@ -181,7 +181,7 @@
        </size>
       </property>
       <property name="inputMask">
-       <string>009.999; </string>
+       <string>009.999</string>
       </property>
       <property name="text">
        <string>.</string>
@@ -444,7 +444,7 @@
       </size>
      </property>
      <property name="inputMask">
-      <string>009.999; </string>
+      <string>009.999</string>
      </property>
      <property name="text">
       <string>.</string>
@@ -539,9 +539,9 @@
    <widget class="QGroupBox" name="groupBox_9">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>270</x>
       <y>170</y>
-      <width>181</width>
+      <width>201</width>
       <height>131</height>
      </rect>
     </property>
@@ -551,8 +551,8 @@
     <widget class="QLineEdit" name="coolingSetpoint">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>50</y>
+       <x>80</x>
+       <y>70</y>
        <width>50</width>
        <height>31</height>
       </rect>
@@ -564,7 +564,7 @@
       </size>
      </property>
      <property name="inputMask">
-      <string>#09.99; </string>
+      <string>#09.99</string>
      </property>
      <property name="text">
       <string>.</string>
@@ -573,8 +573,8 @@
     <widget class="QLabel" name="textLabel12">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>60</y>
+       <x>10</x>
+       <y>80</y>
        <width>70</width>
        <height>21</height>
       </rect>
@@ -592,27 +592,11 @@
       <cstring>coolingSetpoint</cstring>
      </property>
     </widget>
-    <widget class="QPushButton" name="coolingUpdateButton">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>90</y>
-       <width>85</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>&amp;Update</string>
-     </property>
-     <property name="shortcut">
-      <string>Alt+U</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="ccdTempLbl">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>30</y>
+       <x>90</x>
+       <y>40</y>
        <width>71</width>
        <height>21</height>
       </rect>
@@ -627,8 +611,8 @@
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>29</y>
+       <x>0</x>
+       <y>39</y>
        <width>101</width>
        <height>21</height>
       </rect>
@@ -640,7 +624,7 @@
     <widget class="QCheckBox" name="enableChkBox">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>120</x>
        <y>90</y>
        <width>70</width>
        <height>31</height>
@@ -651,6 +635,35 @@
      </property>
      <property name="checked">
       <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_8">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>19</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Potenza:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ccdPower">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>20</y>
+       <width>71</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Unknown</string>
+     </property>
+     <property name="wordWrap">
+      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -729,7 +742,7 @@
      <x>0</x>
      <y>0</y>
      <width>663</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="File">
