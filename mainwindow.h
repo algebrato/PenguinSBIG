@@ -38,6 +38,7 @@ private slots:
     void progBar(double timeEx);
     void prova();
     void provaLoop();
+    void QTemp();
 
 
 private:

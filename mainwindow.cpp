@@ -27,7 +27,7 @@
 CSBIGCam *camera;
 CSBIGImg *immagine;
 ImageView *www;
-
+QTimer *timer=(QTimer *)0;
 
 bool link_status=false;
 
@@ -48,9 +48,12 @@ MainWindow::MainWindow(QWidget *parent) :
     loadParameters();
     camera = new CSBIGCam();
     immagine = new CSBIGImg();
+	
+    timer = new QTimer(this);
+    timer->start(1000);
+    connect(timer, SIGNAL(timeout()), this, SLOT(QTemp()));
 
-
-    QString yoda = "/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png";
+    QString yoda = "/home/algebrato/.PenguinSBIG/yoda_l_d.png";
     QImage imm(yoda);
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
@@ -224,7 +227,7 @@ void MainWindow::closeConnection(){
         camera->CloseDevice();
         camera->CloseDriver();
 
-        QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_d.png");
+        QImage imm("/home/algebrato/.PenguinSBIG/yoda_l_d.png");
         ui->label_imm->setPixmap(QPixmap::fromImage(imm));
         ui->label_imm->resize(ui->label_imm->pixmap()->size());
         link_status=false;
@@ -259,9 +262,9 @@ void MainWindow::openConnection(){
 
 
     QString *cT = new QString(camera->GetCameraTypeString().c_str());
-    *cT = "Link to: " + *cT + "on USB"; //non si vede tutta nella label sopra l'immagine.
+    //*cT = "Link to: " + *cT + "on USB"; //non si vede tutta nella label sopra l'immagine.
     ui->lab_conn->setText(cT->toAscii());
-    QImage imm("/home/stefanomandelli/.PenguinSBIG/yoda_l_u.png");
+    QImage imm("/home/algebrato/.PenguinSBIG/yoda_l_u.png");
     ui->label_imm->setPixmap(QPixmap::fromImage(imm));
     ui->label_imm->resize(ui->label_imm->pixmap()->size());
     link_status=true;
@@ -277,6 +280,39 @@ void MainWindow::openConnection(){
     tem.setNum(ccdTemp, 'f', 2);
     ui->ccdTempLbl->setText(tem.toAscii());
 }
+
+void MainWindow::QTemp(){
+    if(link_status){
+    	double ccdTemp, setpointTemp, percentTE;
+    	MY_LOGICAL enabled;
+        MY_LOGICAL enabled2;
+        QString qs, power, tem;
+
+        if(ui->enableChkBox->isChecked()){
+            enabled2=true;
+        }else{
+            enabled2=false;
+        }
+    
+    	camera->QueryTemperatureStatus(enabled, ccdTemp, setpointTemp, percentTE);
+        setpointTemp = ui->coolingSetpoint->text().toDouble();
+        camera->SetTemperatureRegulation(enabled2, setpointTemp);
+
+        qs.setNum(setpointTemp, 'f',2);
+        //ui->coolingSetpoint->setText(qs.toAscii());
+    	tem.setNum(ccdTemp, 'f', 2);
+    	ui->ccdTempLbl->setText(tem.toAscii());
+        power.setNum(percentTE, 'f',2);
+        ui->ccdPower->setText(power.toAscii());
+
+    }else{
+        return;
+    }
+
+}
+
+
+
 
 
 void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... ripensarla per il loopfocus.
@@ -342,15 +378,11 @@ void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... 
         QMessageBox::information((QWidget*)0, "Grab Error", "Error to grab image.");
         return;
     }
-    progress=0;
-    t = new QTimer(this);
-    connect(t, SIGNAL(timeout()), this, SLOT(progBar(timeEx)));
-    t->start(1000);
 
     QMessageBox::information((QWidget*)0, "Grab Image", "Image Grabbed");
-    www = new ImageView;
+    /*www = new ImageView;
     www->show();
-    www->setImage(immagine);
+    www->setImage(immagine);*/
 
 
     QString *Tot = new QString(ui->linePth->text().toAscii());
@@ -361,6 +393,7 @@ void MainWindow::getImage(){ //Questa funzione è scritta totalmente a caso.... 
         *Tot +=".SBIG";
 
     immagine->SaveImage(Tot->toAscii(), fit);
+    delete (immagine);
     immagine = new CSBIGImg();
 
 }
